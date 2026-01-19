@@ -1,0 +1,223 @@
+/**
+ * Mock data for development and testing
+ */
+
+import { TeamMember } from '@/types/strapi';
+
+export const mockTeamMembers: TeamMember[] = [
+  // Founding Core Team Members
+  {
+    id: 1,
+    name: 'Christopher B. Olowosoke (B.Khrease)',
+    role: 'Founder/Team Lead',
+    bio: 'Christopher B. Olowosoke is the visionary founder of B.Khrease Academic Consult. With extensive experience in academic research and mentorship, he established the company with a mission to provide distinction with ease in undergraduate research support. His leadership has guided numerous students to academic excellence.',
+    category: 'founding-core',
+    order: 1,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 2,
+    name: 'Prosper Obed Chukwuemeka',
+    role: 'Research Writing Coordinator',
+    bio: 'Mr. Prosper Obed Chukwuemeka coordinates research writing activities at B.Khrease Academic Consult, ensuring high-quality academic writing standards and supporting students in their research documentation.',
+    category: 'founding-core',
+    order: 2,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 3,
+    name: 'Tope Abraham Ibisanmi',
+    role: 'Program Operation Coordinator',
+    bio: 'Mr. Tope Abraham Ibisanmi oversees program operations at B.Khrease Academic Consult, ensuring smooth execution of academic programs and maintaining operational excellence.',
+    category: 'founding-core',
+    order: 3,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+
+  // Sub-team Members
+  {
+    id: 4,
+    name: 'Victor Omoboyede',
+    role: 'Research/Laboratory Networking Manager',
+    bio: 'Mr. Victor Omoboyede manages research and laboratory networking activities, facilitating connections between students and research facilities to enhance practical learning experiences.',
+    category: 'sub-team',
+    order: 1,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 5,
+    name: 'Richmore Ibeh',
+    role: 'Peer Mentor Lead',
+    bio: 'Mr. Richmore Ibeh leads the peer mentorship program, coordinating mentor-mentee relationships and ensuring effective knowledge transfer among students.',
+    category: 'sub-team',
+    order: 2,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 6,
+    name: 'Nkechi Elizabeth Olowosoke',
+    role: 'Resource Manager',
+    bio: 'Mrs. Nkechi Elizabeth Olowosoke manages resources and ensures optimal allocation of materials and tools needed for academic programs and research activities.',
+    category: 'sub-team',
+    order: 3,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 7,
+    name: 'Benson Okorie',
+    role: 'Media and Communication Manager',
+    bio: 'Mr. Benson Okorie manages media and communication strategies, ensuring effective outreach and maintaining strong communication channels with students and stakeholders.',
+    category: 'sub-team',
+    order: 4,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 8,
+    name: 'Jacob Leonard Ago',
+    role: 'Partnership and Impact Manager',
+    bio: 'Mr. Jacob Leonard Ago manages partnerships and measures impact, fostering strategic relationships and ensuring the effectiveness of B.Khrease Academic Consult programs.',
+    category: 'sub-team',
+    order: 5,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+
+  // Other Team Members
+  {
+    id: 9,
+    name: 'Aqsa Munir',
+    role: 'Team Member',
+    bio: 'Ms. Aqsa Munir is a dedicated team member contributing to the mission of B.Khrease Academic Consult in providing quality academic support and research mentorship.',
+    category: 'other',
+    order: 1,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 10,
+    name: 'Alaba Adebola',
+    role: 'Team Member',
+    bio: 'Ms. Alaba Adebola is a valued team member supporting various academic initiatives and contributing to the success of B.Khrease Academic Consult programs.',
+    category: 'other',
+    order: 2,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 11,
+    name: 'David Oyebamiji',
+    role: 'Team Member',
+    bio: 'Mr. David Oyebamiji is an active team member contributing to the academic excellence mission of B.Khrease Academic Consult.',
+    category: 'other',
+    order: 3,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 12,
+    name: 'Emmanuel Adebayo',
+    role: 'Team Member',
+    bio: 'Mr. Emmanuel Adebayo is a committed team member supporting the academic and research activities at B.Khrease Academic Consult.',
+    category: 'other',
+    order: 4,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 13,
+    name: 'Adegboyega Benjamin',
+    role: 'Team Member',
+    bio: 'Mr. Adegboyega Benjamin is a dedicated team member contributing to the mission of providing distinction with ease in undergraduate research mentorship.',
+    category: 'other',
+    order: 5,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 14,
+    name: 'Sarah Olanrewaju Oladejo',
+    role: 'Team Member',
+    bio: 'Ms. Sarah Olanrewaju Oladejo is an enthusiastic team member supporting academic programs and student success at B.Khrease Academic Consult.',
+    category: 'other',
+    order: 6,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+  {
+    id: 15,
+    name: 'Oreoluwa Ibukunmi Olowosoke',
+    role: 'Team Member',
+    bio: 'Mr. Oreoluwa Ibukunmi Olowosoke is a passionate team member contributing to the academic excellence and research mentorship programs.',
+    category: 'other',
+    order: 7,
+    socialLinks: {
+      email: 'Info.bkhrease.ng@gmail.com',
+    },
+    createdAt: '2024-01-01T00:00:00.000Z',
+    updatedAt: '2024-01-01T00:00:00.000Z',
+    publishedAt: '2024-01-01T00:00:00.000Z',
+  },
+];

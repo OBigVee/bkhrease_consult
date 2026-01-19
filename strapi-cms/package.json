@@ -1,0 +1,43 @@
+{
+  "name": "bkhrease-strapi-cms",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Strapi CMS for B.Khrease Academic Website",
+  "scripts": {
+    "build": "strapi build",
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "strapi": "strapi",
+    "validate": "node scripts/validate-setup.js",
+    "setup": "npm run validate && echo 'Run: docker-compose up -d postgres && npm run develop'"
+  },
+  "dependencies": {
+    "@strapi/plugin-cloud": "4.25.9",
+    "@strapi/plugin-i18n": "4.25.9",
+    "@strapi/plugin-users-permissions": "4.25.9",
+    "@strapi/provider-email-nodemailer": "^5.27.0",
+    "@strapi/provider-upload-cloudinary": "4.25.9",
+    "@strapi/strapi": "4.25.9",
+    "ajv": "^8.17.1",
+    "better-sqlite3": "8.6.0",
+    "pg": "8.8.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.11"
+  },
+  "author": {
+    "name": "Doxantro Systems"
+  },
+  "strapi": {
+    "uuid": "bkhrease-cms-2025"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "baseline-browser-mapping": "^2.9.11"
+  }
+}
