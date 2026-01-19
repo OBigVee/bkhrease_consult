@@ -1,0 +1,21 @@
+# Ignore Strapi CMS completely during Vercel deployment
+strapi-cms/
+
+# Ignore other unnecessary files
+.kiro/
+.husky/
+*.md
+!README.md
+.git/
+.gitignore
+docker-compose.yml
+setup.sh
+setup-strapi.sh
+
+# Ignore documentation and images
+Re_/
+Re_2/
+*.zip
+*.docx
+*.jpg
+!public/**/*.jpg
