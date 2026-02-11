@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { NewsItem, StrapiResponse } from '@/types/strapi';
-import { formatDate } from '@/lib/utils';
+import { formatDate, extractTextFromBlocks } from '@/lib/utils';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import Card from '@/components/ui/Card';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -280,10 +281,9 @@ const NewsArticle: React.FC<NewsArticleProps> = ({ newsItem }) => {
 
           {/* Article Content */}
           <Card variant="default" padding="lg" className="mb-12">
-            <div
-              className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:text-gray-700 prose-ol:text-gray-700"
-              dangerouslySetInnerHTML={{ __html: newsItem.content }}
-            />
+            <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:my-2 prose-li:my-0 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:text-gray-700 prose-ol:text-gray-700">
+              <BlocksRenderer content={newsItem.content} />
+            </div>
           </Card>
 
           {/* Related Articles */}
@@ -330,7 +330,7 @@ const NewsArticle: React.FC<NewsArticleProps> = ({ newsItem }) => {
                       </h3>
 
                       <p className="text-sm text-gray-600 line-clamp-2">
-                        {item.content.replace(/<[^>]*>/g, '').substring(0, 100)}
+                        {extractTextFromBlocks(item.content).substring(0, 100)}
                         ...
                       </p>
 

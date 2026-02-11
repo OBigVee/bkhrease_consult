@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_content_bold_values",
+  "info": {
+    "displayName": "BoldValues",
+    "icon": "star",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "believe": {
+      "type": "text"
+    },
+    "overcome": {
+      "type": "text"
+    },
+    "lead": {
+      "type": "text"
+    },
+    "deliver": {
+      "type": "text"
+    }
+  }
+}

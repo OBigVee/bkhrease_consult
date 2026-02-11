@@ -20,3 +20,32 @@ export function slugify(text: string): string {
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
 }
+
+/**
+ * Extracts plain text from Strapi Blocks JSON format
+ * @param blocks - The blocks JSON object or array
+ * @returns Plain text string
+ */
+export function extractTextFromBlocks(blocks: any): string {
+  if (!blocks) return '';
+
+  // If it's already a string, return it (backward compatibility)
+  if (typeof blocks === 'string') return blocks;
+
+  // If it's an array of blocks
+  if (Array.isArray(blocks)) {
+    return blocks
+      .map((block: any) => {
+        if (block.type === 'paragraph' || block.type === 'heading') {
+          return block.children
+            ?.map((child: any) => child.text)
+            .join(' ');
+        }
+        return '';
+      })
+      .join(' ')
+      .trim();
+  }
+
+  return '';
+}

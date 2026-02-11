@@ -4,10 +4,11 @@
   "version": "0.1.0",
   "description": "Strapi CMS for B.Khrease Academic Website",
   "scripts": {
-    "build": "strapi build",
-    "develop": "strapi develop",
+    "build": "strapi build && npm run copy-schemas",
+    "develop": "concurrently \"npm run copy-schemas && strapi develop\" \"sleep 10 && npm run copy-schemas\" \"sleep 20 && npm run copy-schemas\"",
     "start": "strapi start",
     "strapi": "strapi",
+    "copy-schemas": "copyfiles \"src/**/*.json\" dist/",
     "validate": "node scripts/validate-setup.js",
     "setup": "npm run validate && echo 'Run: docker-compose up -d postgres && npm run develop'"
   },
@@ -20,11 +21,11 @@
     "@strapi/strapi": "4.25.9",
     "ajv": "^8.17.1",
     "better-sqlite3": "8.6.0",
-    "pg": "8.8.0",
+    "pg": "^8.8.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.11"
+    "styled-components": "5.3.3"
   },
   "author": {
     "name": "Doxantro Systems"
@@ -33,11 +34,16 @@
     "uuid": "bkhrease-cms-2025"
   },
   "engines": {
-    "node": ">=18.0.0 <=20.x.x",
+    "node": ">=18.0.0 <=22.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT",
   "devDependencies": {
-    "baseline-browser-mapping": "^2.9.11"
+    "@strapi/typescript-utils": "4.25.9",
+    "@types/node": "^25.2.2",
+    "baseline-browser-mapping": "^2.9.11",
+    "concurrently": "^9.2.1",
+    "copyfiles": "^2.4.1",
+    "typescript": "^5.9.3"
   }
 }

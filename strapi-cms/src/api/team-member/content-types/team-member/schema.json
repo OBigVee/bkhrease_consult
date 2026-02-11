@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "team_members",
+  "info": {
+    "singularName": "team-member",
+    "pluralName": "team-members",
+    "displayName": "Team Member"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "Bio": {
+      "type": "text"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "founding-core",
+        "sub-team",
+        "other"
+      ]
+    },
+    "order": {
+      "type": "integer"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "SocialLinks": {
+      "displayName": "socialLinks",
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.social-links"
+    }
+  }
+}

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Service, StrapiResponse } from '@/types/strapi';
 import { strapiService } from '@/lib/strapi';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 
 interface ServicesOverviewProps {
   services?: Service[];
@@ -443,10 +444,17 @@ const ServicesOverview: React.FC<ServicesOverviewProps> = ({
 
               {/* Modal Content */}
               <div className="space-y-6">
-                <p className="text-gray-700 leading-relaxed">
-                  {selectedService.detailedDescription ||
-                    selectedService.description}
-                </p>
+                {/* If detailedDescription is an array (Blocks), use the renderer */}
+                {Array.isArray(selectedService.detailedDescription) ? (
+                  <div className="prose max-w-none text-gray-700">
+                    <BlocksRenderer content={selectedService.detailedDescription} />
+                  </div>
+                ) : (
+                  /* Fallback for string description or empty detailedDescription */
+                  <p className="text-gray-700 leading-relaxed">
+                    {selectedService.description}
+                  </p>
+                )}
 
                 {/* Features */}
                 {selectedService.features &&

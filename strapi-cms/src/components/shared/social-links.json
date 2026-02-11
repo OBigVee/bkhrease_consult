@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_social_links",
+  "info": {
+    "displayName": "socialLinks"
+  },
+  "options": {},
+  "attributes": {
+    "linkedin": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    }
+  }
+}

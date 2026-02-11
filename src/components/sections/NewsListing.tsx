@@ -9,7 +9,7 @@ import Card from '@/components/ui/Card';
 import CountdownTimer from '@/components/ui/CountdownTimer';
 import NewsSubscription from '@/components/ui/NewsSubscription';
 import EventReminder from '@/components/ui/EventReminder';
-import { formatDate } from '@/lib/utils';
+import { formatDate, extractTextFromBlocks } from '@/lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -116,11 +116,10 @@ const NewsListingContent: React.FC<NewsListingProps> = ({
               <button
                 key={type.value}
                 onClick={() => setSelectedFilter(type.value)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
-                  selectedFilter === type.value
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${selectedFilter === type.value
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
               >
                 {type.label}
               </button>
@@ -230,7 +229,7 @@ const NewsListingContent: React.FC<NewsListingProps> = ({
 
                       {/* Content Preview */}
                       <p className="text-gray-600 line-clamp-3">
-                        {item.content.replace(/<[^>]*>/g, '').substring(0, 150)}
+                        {extractTextFromBlocks(item.content).substring(0, 150)}
                         ...
                       </p>
 
@@ -302,9 +301,9 @@ const NewsListingContent: React.FC<NewsListingProps> = ({
                           const currentDate = new Date();
                           return (
                             publishedDate.getMonth() ===
-                              currentDate.getMonth() &&
+                            currentDate.getMonth() &&
                             publishedDate.getFullYear() ===
-                              currentDate.getFullYear()
+                            currentDate.getFullYear()
                           );
                         }).length
                       }

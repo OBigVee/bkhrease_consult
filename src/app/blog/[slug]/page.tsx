@@ -1,3 +1,4 @@
+import { extractTextFromBlocks } from '@/lib/utils';
 import { notFound } from 'next/navigation';
 import { Layout } from '@/components/layout';
 import { BlogArticle } from '@/components/sections';
@@ -33,7 +34,7 @@ export async function generateMetadata({ params }: BlogPageProps) {
   const postUrl = `${siteUrl}/blog/${blogPost.slug}`;
   const description =
     blogPost.excerpt ||
-    blogPost.content.replace(/<[^>]*>/g, '').substring(0, 160);
+    extractTextFromBlocks(blogPost.content).substring(0, 160);
 
   return {
     title: `${blogPost.title} - B.Khrease Academic Consult`,
@@ -62,25 +63,25 @@ export async function generateMetadata({ params }: BlogPageProps) {
       section: blogPost.categories?.[0]?.name || 'Blog',
       images: blogPost.featuredImage
         ? [
-            {
-              url: blogPost.featuredImage.url.startsWith('http')
-                ? blogPost.featuredImage.url
-                : `${siteUrl}${blogPost.featuredImage.url}`,
-              width: blogPost.featuredImage.width || 1200,
-              height: blogPost.featuredImage.height || 630,
-              alt: blogPost.featuredImage.alternativeText || blogPost.title,
-              type: blogPost.featuredImage.mime || 'image/jpeg',
-            },
-          ]
+          {
+            url: blogPost.featuredImage.url.startsWith('http')
+              ? blogPost.featuredImage.url
+              : `${siteUrl}${blogPost.featuredImage.url}`,
+            width: blogPost.featuredImage.width || 1200,
+            height: blogPost.featuredImage.height || 630,
+            alt: blogPost.featuredImage.alternativeText || blogPost.title,
+            type: blogPost.featuredImage.mime || 'image/jpeg',
+          },
+        ]
         : [
-            {
-              url: `${siteUrl}/images/blog-default-og.jpg`,
-              width: 1200,
-              height: 630,
-              alt: 'B.Khrease Academic Consult Blog',
-              type: 'image/jpeg',
-            },
-          ],
+          {
+            url: `${siteUrl}/images/blog-default-og.jpg`,
+            width: 1200,
+            height: 630,
+            alt: 'B.Khrease Academic Consult Blog',
+            type: 'image/jpeg',
+          },
+        ],
     },
     twitter: {
       card: 'summary_large_image',
@@ -90,10 +91,10 @@ export async function generateMetadata({ params }: BlogPageProps) {
       description,
       images: blogPost.featuredImage
         ? [
-            blogPost.featuredImage.url.startsWith('http')
-              ? blogPost.featuredImage.url
-              : `${siteUrl}${blogPost.featuredImage.url}`,
-          ]
+          blogPost.featuredImage.url.startsWith('http')
+            ? blogPost.featuredImage.url
+            : `${siteUrl}${blogPost.featuredImage.url}`,
+        ]
         : [`${siteUrl}/images/blog-default-og.jpg`],
     },
     alternates: {
@@ -124,7 +125,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
     title: `${blogPost.title} - B.Khrease Academic Consult`,
     description:
       blogPost.excerpt ||
-      blogPost.content.replace(/<[^>]*>/g, '').substring(0, 160),
+      extractTextFromBlocks(blogPost.content).substring(0, 160),
     keywords: [
       'B.Khrease',
       'academic blog',

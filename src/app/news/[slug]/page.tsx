@@ -1,3 +1,4 @@
+import { extractTextFromBlocks } from '@/lib/utils';
 import { notFound } from 'next/navigation';
 import { Layout } from '@/components/layout';
 import { NewsArticle } from '@/components/sections';
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: NewsPageProps) {
 
   return {
     title: `${newsItem.title} - B.Khrease Academic Consult`,
-    description: newsItem.content.replace(/<[^>]*>/g, '').substring(0, 160),
+    description: extractTextFromBlocks(newsItem.content).substring(0, 160),
     keywords: [
       'B.Khrease',
       'academic news',
@@ -41,24 +42,24 @@ export async function generateMetadata({ params }: NewsPageProps) {
     ],
     openGraph: {
       title: newsItem.title,
-      description: newsItem.content.replace(/<[^>]*>/g, '').substring(0, 160),
+      description: extractTextFromBlocks(newsItem.content).substring(0, 160),
       type: 'article',
       publishedTime: newsItem.publishedAt,
       images: newsItem.featuredImage
         ? [
-            {
-              url: newsItem.featuredImage.url,
-              width: newsItem.featuredImage.width,
-              height: newsItem.featuredImage.height,
-              alt: newsItem.featuredImage.alternativeText || newsItem.title,
-            },
-          ]
+          {
+            url: newsItem.featuredImage.url,
+            width: newsItem.featuredImage.width,
+            height: newsItem.featuredImage.height,
+            alt: newsItem.featuredImage.alternativeText || newsItem.title,
+          },
+        ]
         : [],
     },
     twitter: {
       card: 'summary_large_image',
       title: newsItem.title,
-      description: newsItem.content.replace(/<[^>]*>/g, '').substring(0, 160),
+      description: extractTextFromBlocks(newsItem.content).substring(0, 160),
       images: newsItem.featuredImage ? [newsItem.featuredImage.url] : [],
     },
   };
@@ -73,7 +74,7 @@ export default async function NewsItemPage({ params }: NewsPageProps) {
 
   const seo = {
     title: `${newsItem.title} - B.Khrease Academic Consult`,
-    description: newsItem.content.replace(/<[^>]*>/g, '').substring(0, 160),
+    description: extractTextFromBlocks(newsItem.content).substring(0, 160),
     keywords: [
       'B.Khrease',
       'academic news',

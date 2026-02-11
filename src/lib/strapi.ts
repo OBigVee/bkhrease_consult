@@ -39,7 +39,14 @@ export class StrapiAPIError extends Error {
   }
 }
 
-class StrapiService {
+// Helper to normalize media
+const normalizeMedia = (media: any): any => {
+  if (!media?.data) return undefined;
+  const { id, attributes } = media.data;
+  return { id, ...attributes };
+};
+
+export class StrapiService {
   private baseURL: string;
   private token?: string;
   private retryAttempts: number;
@@ -69,6 +76,7 @@ class StrapiService {
   ): Promise<T> {
     const startTime = Date.now();
     const url = `${this.baseURL}/api${endpoint}`;
+    console.log(`[StrapiService] Fetching: ${url}`); // Debug Log
     const method = options.method || 'GET';
 
     const headers: Record<string, string> = {
@@ -104,7 +112,7 @@ class StrapiService {
 
         const error = new StrapiAPIError(
           errorDetails.error?.message ||
-            `HTTP ${response.status}: ${response.statusText}`,
+          `HTTP ${response.status}: ${response.statusText}`,
           response.status,
           errorDetails
         );
@@ -263,9 +271,29 @@ class StrapiService {
   // Team members methods
   async getTeamMembers(): Promise<StrapiResponse<TeamMember[]>> {
     try {
-      return await this.fetchAPI<StrapiResponse<TeamMember[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         '/team-members?populate=*&sort=order:asc'
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        name: item.attributes.Name, // Map Name -> name
+        role: item.attributes.role,
+        bio: item.attributes.Bio,   // Map Bio -> bio
+        category: item.attributes.category,
+        order: item.attributes.order,
+        image: normalizeMedia(item.attributes.image),
+        socialLinks: item.attributes.SocialLinks ? {
+          linkedin: item.attributes.SocialLinks.linkedin,
+          email: item.attributes.SocialLinks.email,
+          twitter: item.attributes.SocialLinks.twitter
+        } : undefined,
+        createdAt: item.attributes.createdAt,
+        updatedAt: item.attributes.updatedAt,
+        publishedAt: item.attributes.publishedAt,
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error('Failed to fetch team members:', error);
       throw error;
@@ -276,9 +304,30 @@ class StrapiService {
     category: 'founding-core' | 'sub-team' | 'other'
   ): Promise<StrapiResponse<TeamMember[]>> {
     try {
-      return await this.fetchAPI<StrapiResponse<TeamMember[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         `/team-members?populate=*&filters[category][$eq]=${category}&sort=order:asc`
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        name: item.attributes.Name,
+        role: item.attributes.role,
+        bio: item.attributes.Bio,
+        category: item.attributes.category,
+        order: item.attributes.order,
+        image: normalizeMedia(item.attributes.image),
+        socialLinks: item.attributes.SocialLinks ? {
+          linkedin: item.attributes.SocialLinks.linkedin,
+          email: item.attributes.SocialLinks.email,
+          twitter: item.attributes.SocialLinks.twitter
+        } : undefined,
+        createdAt: item.attributes.createdAt,
+        updatedAt: item.attributes.updatedAt,
+        publishedAt: item.attributes.publishedAt,
+      }));
+
+      return { ...response, data: normalizedData };
+
     } catch (error) {
       console.error(
         `Failed to fetch team members for category ${category}:`,
@@ -294,9 +343,26 @@ class StrapiService {
     limit = 10
   ): Promise<StrapiResponse<BlogPost[]>> {
     try {
-      return await this.fetchAPI<StrapiResponse<BlogPost[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         `/blog-posts?populate=*&pagination[page]=${page}&pagination[pageSize]=${limit}&sort=publishedAt:desc`
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        ...item.attributes,
+        featuredImage: normalizeMedia(item.attributes.featuredImage),
+        author: item.attributes.author?.data ? {
+          id: item.attributes.author.data.id,
+          ...item.attributes.author.data.attributes,
+          image: normalizeMedia(item.attributes.author.data.attributes.image)
+        } : undefined,
+        categories: item.attributes.categories?.data?.map((cat: any) => ({
+          id: cat.id,
+          ...cat.attributes
+        }))
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error('Failed to fetch blog posts:', error);
       throw error;
@@ -309,9 +375,26 @@ class StrapiService {
     }
 
     try {
-      return await this.fetchAPI<StrapiResponse<BlogPost[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         `/blog-posts?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        ...item.attributes,
+        featuredImage: normalizeMedia(item.attributes.featuredImage),
+        author: item.attributes.author?.data ? {
+          id: item.attributes.author.data.id,
+          ...item.attributes.author.data.attributes,
+          image: normalizeMedia(item.attributes.author.data.attributes.image)
+        } : undefined,
+        categories: item.attributes.categories?.data?.map((cat: any) => ({
+          id: cat.id,
+          ...cat.attributes
+        }))
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error(`Failed to fetch blog post with slug ${slug}:`, error);
       throw error;
@@ -328,9 +411,26 @@ class StrapiService {
     }
 
     try {
-      return await this.fetchAPI<StrapiResponse<BlogPost[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         `/blog-posts?populate=*&filters[categories][slug][$eq]=${encodeURIComponent(categorySlug)}&pagination[page]=${page}&pagination[pageSize]=${limit}&sort=publishedAt:desc`
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        ...item.attributes,
+        featuredImage: normalizeMedia(item.attributes.featuredImage),
+        author: item.attributes.author?.data ? {
+          id: item.attributes.author.data.id,
+          ...item.attributes.author.data.attributes,
+          image: normalizeMedia(item.attributes.author.data.attributes.image)
+        } : undefined,
+        categories: item.attributes.categories?.data?.map((cat: any) => ({
+          id: cat.id,
+          ...cat.attributes
+        }))
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error(
         `Failed to fetch blog posts for category ${categorySlug}:`,
@@ -342,9 +442,16 @@ class StrapiService {
 
   async getBlogCategories(): Promise<StrapiResponse<Category[]>> {
     try {
-      return await this.fetchAPI<StrapiResponse<Category[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         '/categories?sort=name:asc'
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        ...item.attributes
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error('Failed to fetch blog categories:', error);
       throw error;
@@ -362,9 +469,26 @@ class StrapiService {
 
     try {
       const encodedQuery = encodeURIComponent(query.trim());
-      return await this.fetchAPI<StrapiResponse<BlogPost[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         `/blog-posts?populate=*&filters[$or][0][title][$containsi]=${encodedQuery}&filters[$or][1][excerpt][$containsi]=${encodedQuery}&filters[$or][2][content][$containsi]=${encodedQuery}&pagination[page]=${page}&pagination[pageSize]=${limit}&sort=publishedAt:desc`
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        ...item.attributes,
+        featuredImage: normalizeMedia(item.attributes.featuredImage),
+        author: item.attributes.author?.data ? {
+          id: item.attributes.author.data.id,
+          ...item.attributes.author.data.attributes,
+          image: normalizeMedia(item.attributes.author.data.attributes.image)
+        } : undefined,
+        categories: item.attributes.categories?.data?.map((cat: any) => ({
+          id: cat.id,
+          ...cat.attributes
+        }))
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error(
         `Failed to search blog posts with query "${query}":`,
@@ -378,9 +502,17 @@ class StrapiService {
   async getNewsUpdates(limit?: number): Promise<StrapiResponse<NewsItem[]>> {
     try {
       const limitParam = limit ? `&pagination[pageSize]=${limit}` : '';
-      return await this.fetchAPI<StrapiResponse<NewsItem[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         `/news-items?populate=*&sort=publishedAt:desc${limitParam}`
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        ...item.attributes,
+        featuredImage: normalizeMedia(item.attributes.featuredImage)
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error('Failed to fetch news updates:', error);
       throw error;
@@ -393,9 +525,17 @@ class StrapiService {
     }
 
     try {
-      return await this.fetchAPI<StrapiResponse<NewsItem[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         `/news-items?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        ...item.attributes,
+        featuredImage: normalizeMedia(item.attributes.featuredImage)
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error(`Failed to fetch news item with slug ${slug}:`, error);
       throw error;
@@ -406,9 +546,17 @@ class StrapiService {
     type: 'event' | 'publication' | 'achievement' | 'announcement'
   ): Promise<StrapiResponse<NewsItem[]>> {
     try {
-      return await this.fetchAPI<StrapiResponse<NewsItem[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         `/news-items?populate=*&filters[type][$eq]=${type}&sort=publishedAt:desc`
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        ...item.attributes,
+        featuredImage: normalizeMedia(item.attributes.featuredImage)
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error(`Failed to fetch news items of type ${type}:`, error);
       throw error;
@@ -418,9 +566,17 @@ class StrapiService {
   async getUpcomingEvents(): Promise<StrapiResponse<NewsItem[]>> {
     try {
       const today = new Date().toISOString();
-      return await this.fetchAPI<StrapiResponse<NewsItem[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         `/news-items?populate=*&filters[type][$eq]=event&filters[eventDate][$gte]=${today}&sort=eventDate:asc`
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        ...item.attributes,
+        featuredImage: normalizeMedia(item.attributes.featuredImage)
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error('Failed to fetch upcoming events:', error);
       throw error;
@@ -430,9 +586,16 @@ class StrapiService {
   // Services methods
   async getServices(): Promise<StrapiResponse<Service[]>> {
     try {
-      return await this.fetchAPI<StrapiResponse<Service[]>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         '/services?populate=*&sort=order:asc'
       );
+
+      const normalizedData = response.data.map((item: any) => ({
+        id: item.id,
+        ...item.attributes,
+      }));
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error('Failed to fetch services:', error);
       throw error;
@@ -445,9 +608,16 @@ class StrapiService {
     }
 
     try {
-      return await this.fetchAPI<StrapiResponse<Service>>(
+      const response = await this.fetchAPI<StrapiResponse<any>>(
         `/services/${id}?populate=*`
       );
+
+      const normalizedData = {
+        id: response.data.id,
+        ...response.data.attributes
+      };
+
+      return { ...response, data: normalizedData };
     } catch (error) {
       console.error(`Failed to fetch service with ID ${id}:`, error);
       throw error;

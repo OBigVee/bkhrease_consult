@@ -93,7 +93,7 @@ export interface BlogPost {
   title: string;
   slug: string;
   excerpt: string;
-  content: string;
+  content: any; // Changed to any to support Strapi Blocks
   featuredImage?: MediaFile;
   author?: TeamMember;
   categories?: Category[];
@@ -112,7 +112,7 @@ export interface NewsItem {
   id: number;
   title: string;
   slug: string;
-  content: string;
+  content: any; // Changed to any to support Strapi Blocks
   type: 'event' | 'publication' | 'achievement' | 'announcement';
   eventDate?: string;
   registrationLink?: string;

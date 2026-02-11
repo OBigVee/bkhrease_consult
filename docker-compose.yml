@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   postgres:
@@ -26,6 +26,8 @@ services:
       - bkhrease-network
     depends_on:
       - postgres
+
+
 
 volumes:
   postgres_data:

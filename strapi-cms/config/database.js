@@ -2,6 +2,11 @@ const path = require('path');
 
 module.exports = ({ env }) => {
   const client = env('DATABASE_CLIENT', 'sqlite');
+  console.log('--- DEBUG: ACTIVE DATABASE CONFIG ---');
+  console.log('DB Host:', env('DATABASE_HOST'));
+  console.log('DB Name:', env('DATABASE_NAME'));
+  console.log('DB Client:', client);
+  console.log('--- DEBUG END ---');
 
   const connections = {
     postgres: {
@@ -24,6 +29,12 @@ module.exports = ({ env }) => {
           ),
         },
         schema: env('DATABASE_SCHEMA', 'public'),
+      },
+      options: {
+        // Required for Supabase Transaction Pooler (disables prepared statements)
+        connection: {
+          options: '-c statement_timeout=0',
+        },
       },
       pool: {
         min: env.int('DATABASE_POOL_MIN', 2),

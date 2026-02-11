@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_content_statistics",
+  "info": {
+    "displayName": "Statistics",
+    "icon": "chart-pie",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "studentsTrained": {
+      "type": "integer"
+    },
+    "foundingYear": {
+      "type": "integer"
+    },
+    "partnersCount": {
+      "type": "integer"
+    }
+  }
+}
