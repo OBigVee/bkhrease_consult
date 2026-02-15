@@ -2,14 +2,5 @@
   "buildCommand": "next build",
   "devCommand": "next dev",
   "installCommand": "npm install",
-  "framework": "nextjs",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./",
-  "build": {
-    "env": {
-      "NEXT_PUBLIC_SITE_URL": "@site-url"
-    }
-  },
-  "env": {
-    "NEXT_PUBLIC_SITE_URL": "https://bkhrease.vercel.app"
-  }
+  "framework": "nextjs"
 }
