@@ -47,13 +47,13 @@ export async function generateMetadata({ params }: NewsPageProps) {
       publishedTime: newsItem.publishedAt,
       images: newsItem.featuredImage
         ? [
-          {
-            url: newsItem.featuredImage.url,
-            width: newsItem.featuredImage.width,
-            height: newsItem.featuredImage.height,
-            alt: newsItem.featuredImage.alternativeText || newsItem.title,
-          },
-        ]
+            {
+              url: newsItem.featuredImage.url,
+              width: newsItem.featuredImage.width,
+              height: newsItem.featuredImage.height,
+              alt: newsItem.featuredImage.alternativeText || newsItem.title,
+            },
+          ]
         : [],
     },
     twitter: {

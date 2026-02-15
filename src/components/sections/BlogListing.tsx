@@ -193,10 +193,11 @@ const BlogListing: React.FC<BlogListingProps> = ({
           <div className="flex flex-wrap gap-2 justify-center">
             <button
               onClick={() => handleCategoryChange('all')}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${selectedCategory === 'all'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+                selectedCategory === 'all'
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
             >
               All Articles
             </button>
@@ -204,10 +205,11 @@ const BlogListing: React.FC<BlogListingProps> = ({
               <button
                 key={category.id}
                 onClick={() => handleCategoryChange(category.slug)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${selectedCategory === category.slug
-                  ? 'bg-primary-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+                  selectedCategory === category.slug
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
               >
                 {category.name}
               </button>
@@ -289,10 +291,11 @@ const BlogListing: React.FC<BlogListingProps> = ({
                           <button
                             key={page}
                             onClick={() => handlePageChange(page)}
-                            className={`px-4 py-2 border rounded-lg ${currentPage === page
-                              ? 'bg-primary-600 text-white border-primary-600'
-                              : 'border-gray-300 hover:bg-gray-50'
-                              }`}
+                            className={`px-4 py-2 border rounded-lg ${
+                              currentPage === page
+                                ? 'bg-primary-600 text-white border-primary-600'
+                                : 'border-gray-300 hover:bg-gray-50'
+                            }`}
                           >
                             {page}
                           </button>
@@ -324,10 +327,11 @@ const BlogListing: React.FC<BlogListingProps> = ({
                     <button
                       key={category.id}
                       onClick={() => handleCategoryChange(category.slug)}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${selectedCategory === category.slug
-                        ? 'bg-primary-100 text-primary-800'
-                        : 'hover:bg-gray-100'
-                        }`}
+                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors duration-200 ${
+                        selectedCategory === category.slug
+                          ? 'bg-primary-100 text-primary-800'
+                          : 'hover:bg-gray-100'
+                      }`}
                     >
                       {category.name}
                     </button>

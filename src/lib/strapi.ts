@@ -112,7 +112,7 @@ export class StrapiService {
 
         const error = new StrapiAPIError(
           errorDetails.error?.message ||
-          `HTTP ${response.status}: ${response.statusText}`,
+            `HTTP ${response.status}: ${response.statusText}`,
           response.status,
           errorDetails
         );
@@ -279,15 +279,17 @@ export class StrapiService {
         id: item.id,
         name: item.attributes.Name, // Map Name -> name
         role: item.attributes.role,
-        bio: item.attributes.Bio,   // Map Bio -> bio
+        bio: item.attributes.Bio, // Map Bio -> bio
         category: item.attributes.category,
         order: item.attributes.order,
         image: normalizeMedia(item.attributes.image),
-        socialLinks: item.attributes.SocialLinks ? {
-          linkedin: item.attributes.SocialLinks.linkedin,
-          email: item.attributes.SocialLinks.email,
-          twitter: item.attributes.SocialLinks.twitter
-        } : undefined,
+        socialLinks: item.attributes.SocialLinks
+          ? {
+              linkedin: item.attributes.SocialLinks.linkedin,
+              email: item.attributes.SocialLinks.email,
+              twitter: item.attributes.SocialLinks.twitter,
+            }
+          : undefined,
         createdAt: item.attributes.createdAt,
         updatedAt: item.attributes.updatedAt,
         publishedAt: item.attributes.publishedAt,
@@ -316,18 +318,19 @@ export class StrapiService {
         category: item.attributes.category,
         order: item.attributes.order,
         image: normalizeMedia(item.attributes.image),
-        socialLinks: item.attributes.SocialLinks ? {
-          linkedin: item.attributes.SocialLinks.linkedin,
-          email: item.attributes.SocialLinks.email,
-          twitter: item.attributes.SocialLinks.twitter
-        } : undefined,
+        socialLinks: item.attributes.SocialLinks
+          ? {
+              linkedin: item.attributes.SocialLinks.linkedin,
+              email: item.attributes.SocialLinks.email,
+              twitter: item.attributes.SocialLinks.twitter,
+            }
+          : undefined,
         createdAt: item.attributes.createdAt,
         updatedAt: item.attributes.updatedAt,
         publishedAt: item.attributes.publishedAt,
       }));
 
       return { ...response, data: normalizedData };
-
     } catch (error) {
       console.error(
         `Failed to fetch team members for category ${category}:`,
@@ -351,15 +354,19 @@ export class StrapiService {
         id: item.id,
         ...item.attributes,
         featuredImage: normalizeMedia(item.attributes.featuredImage),
-        author: item.attributes.author?.data ? {
-          id: item.attributes.author.data.id,
-          ...item.attributes.author.data.attributes,
-          image: normalizeMedia(item.attributes.author.data.attributes.image)
-        } : undefined,
+        author: item.attributes.author?.data
+          ? {
+              id: item.attributes.author.data.id,
+              ...item.attributes.author.data.attributes,
+              image: normalizeMedia(
+                item.attributes.author.data.attributes.image
+              ),
+            }
+          : undefined,
         categories: item.attributes.categories?.data?.map((cat: any) => ({
           id: cat.id,
-          ...cat.attributes
-        }))
+          ...cat.attributes,
+        })),
       }));
 
       return { ...response, data: normalizedData };
@@ -383,15 +390,19 @@ export class StrapiService {
         id: item.id,
         ...item.attributes,
         featuredImage: normalizeMedia(item.attributes.featuredImage),
-        author: item.attributes.author?.data ? {
-          id: item.attributes.author.data.id,
-          ...item.attributes.author.data.attributes,
-          image: normalizeMedia(item.attributes.author.data.attributes.image)
-        } : undefined,
+        author: item.attributes.author?.data
+          ? {
+              id: item.attributes.author.data.id,
+              ...item.attributes.author.data.attributes,
+              image: normalizeMedia(
+                item.attributes.author.data.attributes.image
+              ),
+            }
+          : undefined,
         categories: item.attributes.categories?.data?.map((cat: any) => ({
           id: cat.id,
-          ...cat.attributes
-        }))
+          ...cat.attributes,
+        })),
       }));
 
       return { ...response, data: normalizedData };
@@ -419,15 +430,19 @@ export class StrapiService {
         id: item.id,
         ...item.attributes,
         featuredImage: normalizeMedia(item.attributes.featuredImage),
-        author: item.attributes.author?.data ? {
-          id: item.attributes.author.data.id,
-          ...item.attributes.author.data.attributes,
-          image: normalizeMedia(item.attributes.author.data.attributes.image)
-        } : undefined,
+        author: item.attributes.author?.data
+          ? {
+              id: item.attributes.author.data.id,
+              ...item.attributes.author.data.attributes,
+              image: normalizeMedia(
+                item.attributes.author.data.attributes.image
+              ),
+            }
+          : undefined,
         categories: item.attributes.categories?.data?.map((cat: any) => ({
           id: cat.id,
-          ...cat.attributes
-        }))
+          ...cat.attributes,
+        })),
       }));
 
       return { ...response, data: normalizedData };
@@ -448,7 +463,7 @@ export class StrapiService {
 
       const normalizedData = response.data.map((item: any) => ({
         id: item.id,
-        ...item.attributes
+        ...item.attributes,
       }));
 
       return { ...response, data: normalizedData };
@@ -477,15 +492,19 @@ export class StrapiService {
         id: item.id,
         ...item.attributes,
         featuredImage: normalizeMedia(item.attributes.featuredImage),
-        author: item.attributes.author?.data ? {
-          id: item.attributes.author.data.id,
-          ...item.attributes.author.data.attributes,
-          image: normalizeMedia(item.attributes.author.data.attributes.image)
-        } : undefined,
+        author: item.attributes.author?.data
+          ? {
+              id: item.attributes.author.data.id,
+              ...item.attributes.author.data.attributes,
+              image: normalizeMedia(
+                item.attributes.author.data.attributes.image
+              ),
+            }
+          : undefined,
         categories: item.attributes.categories?.data?.map((cat: any) => ({
           id: cat.id,
-          ...cat.attributes
-        }))
+          ...cat.attributes,
+        })),
       }));
 
       return { ...response, data: normalizedData };
@@ -509,7 +528,7 @@ export class StrapiService {
       const normalizedData = response.data.map((item: any) => ({
         id: item.id,
         ...item.attributes,
-        featuredImage: normalizeMedia(item.attributes.featuredImage)
+        featuredImage: normalizeMedia(item.attributes.featuredImage),
       }));
 
       return { ...response, data: normalizedData };
@@ -532,7 +551,7 @@ export class StrapiService {
       const normalizedData = response.data.map((item: any) => ({
         id: item.id,
         ...item.attributes,
-        featuredImage: normalizeMedia(item.attributes.featuredImage)
+        featuredImage: normalizeMedia(item.attributes.featuredImage),
       }));
 
       return { ...response, data: normalizedData };
@@ -553,7 +572,7 @@ export class StrapiService {
       const normalizedData = response.data.map((item: any) => ({
         id: item.id,
         ...item.attributes,
-        featuredImage: normalizeMedia(item.attributes.featuredImage)
+        featuredImage: normalizeMedia(item.attributes.featuredImage),
       }));
 
       return { ...response, data: normalizedData };
@@ -573,7 +592,7 @@ export class StrapiService {
       const normalizedData = response.data.map((item: any) => ({
         id: item.id,
         ...item.attributes,
-        featuredImage: normalizeMedia(item.attributes.featuredImage)
+        featuredImage: normalizeMedia(item.attributes.featuredImage),
       }));
 
       return { ...response, data: normalizedData };
@@ -614,7 +633,7 @@ export class StrapiService {
 
       const normalizedData = {
         id: response.data.id,
-        ...response.data.attributes
+        ...response.data.attributes,
       };
 
       return { ...response, data: normalizedData };

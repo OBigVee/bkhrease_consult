@@ -63,25 +63,25 @@ export async function generateMetadata({ params }: BlogPageProps) {
       section: blogPost.categories?.[0]?.name || 'Blog',
       images: blogPost.featuredImage
         ? [
-          {
-            url: blogPost.featuredImage.url.startsWith('http')
-              ? blogPost.featuredImage.url
-              : `${siteUrl}${blogPost.featuredImage.url}`,
-            width: blogPost.featuredImage.width || 1200,
-            height: blogPost.featuredImage.height || 630,
-            alt: blogPost.featuredImage.alternativeText || blogPost.title,
-            type: blogPost.featuredImage.mime || 'image/jpeg',
-          },
-        ]
+            {
+              url: blogPost.featuredImage.url.startsWith('http')
+                ? blogPost.featuredImage.url
+                : `${siteUrl}${blogPost.featuredImage.url}`,
+              width: blogPost.featuredImage.width || 1200,
+              height: blogPost.featuredImage.height || 630,
+              alt: blogPost.featuredImage.alternativeText || blogPost.title,
+              type: blogPost.featuredImage.mime || 'image/jpeg',
+            },
+          ]
         : [
-          {
-            url: `${siteUrl}/images/blog-default-og.jpg`,
-            width: 1200,
-            height: 630,
-            alt: 'B.Khrease Academic Consult Blog',
-            type: 'image/jpeg',
-          },
-        ],
+            {
+              url: `${siteUrl}/images/blog-default-og.jpg`,
+              width: 1200,
+              height: 630,
+              alt: 'B.Khrease Academic Consult Blog',
+              type: 'image/jpeg',
+            },
+          ],
     },
     twitter: {
       card: 'summary_large_image',
@@ -91,10 +91,10 @@ export async function generateMetadata({ params }: BlogPageProps) {
       description,
       images: blogPost.featuredImage
         ? [
-          blogPost.featuredImage.url.startsWith('http')
-            ? blogPost.featuredImage.url
-            : `${siteUrl}${blogPost.featuredImage.url}`,
-        ]
+            blogPost.featuredImage.url.startsWith('http')
+              ? blogPost.featuredImage.url
+              : `${siteUrl}${blogPost.featuredImage.url}`,
+          ]
         : [`${siteUrl}/images/blog-default-og.jpg`],
     },
     alternates: {

@@ -447,7 +447,9 @@ const ServicesOverview: React.FC<ServicesOverviewProps> = ({
                 {/* If detailedDescription is an array (Blocks), use the renderer */}
                 {Array.isArray(selectedService.detailedDescription) ? (
                   <div className="prose max-w-none text-gray-700">
-                    <BlocksRenderer content={selectedService.detailedDescription} />
+                    <BlocksRenderer
+                      content={selectedService.detailedDescription}
+                    />
                   </div>
                 ) : (
                   /* Fallback for string description or empty detailedDescription */

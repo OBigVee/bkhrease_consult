@@ -288,9 +288,7 @@ const BlogArticle: React.FC<BlogArticleProps> = ({ blogPost }) => {
 
             {/* Article Content */}
             <Card variant="default" padding="lg" className="mb-12">
-              <div
-                className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:text-gray-700 prose-ol:text-gray-700 prose-blockquote:border-primary-200 prose-blockquote:bg-primary-50 prose-blockquote:text-gray-800"
-              >
+              <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:text-gray-700 prose-ol:text-gray-700 prose-blockquote:border-primary-200 prose-blockquote:bg-primary-50 prose-blockquote:text-gray-800">
                 <BlocksRenderer content={blogPost.content} />
               </div>
             </Card>
@@ -393,7 +391,10 @@ const BlogArticle: React.FC<BlogArticleProps> = ({ blogPost }) => {
 
                         <p className="text-sm text-gray-600 line-clamp-2">
                           {post.excerpt ||
-                            extractTextFromBlocks(post.content).substring(0, 100)}
+                            extractTextFromBlocks(post.content).substring(
+                              0,
+                              100
+                            )}
                           ...
                         </p>
 
