@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: 'B.Khrease Contact Form <onboarding@resend.dev>', // Use verified domain if available, else default resend.dev
       to: 'Info.bkhrease.ng@gmail.com',
-      reply_to: formData.email,
+      replyTo: formData.email,
       subject: `New Inquiry: ${formData.subject}`,
       html: `
         <h2>New Contact Form Submission</h2>
