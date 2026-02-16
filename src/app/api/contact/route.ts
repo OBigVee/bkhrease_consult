@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 interface ContactFormData {
   name: string;
@@ -41,57 +44,43 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate message length
-    if (formData.message.length < 10) {
-      return NextResponse.json(
-        { error: 'Message must be at least 10 characters long.' },
-        { status: 400 }
-      );
-    }
-
-    // Log the contact form submission (in production, you'd save to database or send email)
-    console.log('Contact form submission:', {
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone || 'Not provided',
-      subject: formData.subject,
-      serviceType: formData.serviceType,
-      message: formData.message,
-      timestamp: new Date().toISOString(),
-    });
-
-    // In a real implementation, you would:
-    // 1. Save the contact form data to your database
-    // 2. Send an email notification to the team
-    // 3. Send a confirmation email to the user
-    // 4. Integrate with a CRM system
-
-    // Example email integration (commented out):
-    /*
-    const emailService = new EmailService(process.env.EMAIL_SERVICE_API_KEY);
-    
-    // Send notification to team
-    await emailService.sendEmail({
+    // Send email to Admin (You)
+    await resend.emails.send({
+      from: 'B.Khrease Contact Form <onboarding@resend.dev>', // Use verified domain if available, else default resend.dev
       to: 'Info.bkhrease.ng@gmail.com',
-      subject: `New Contact Form: ${formData.subject}`,
-      html: generateTeamNotificationEmail(formData),
+      reply_to: formData.email,
+      subject: `New Inquiry: ${formData.subject}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${formData.name}</p>
+        <p><strong>Email:</strong> ${formData.email}</p>
+        <p><strong>Phone:</strong> ${formData.phone || 'Not provided'}</p>
+        <p><strong>Service Type:</strong> ${formData.serviceType}</p>
+        <p><strong>Subject:</strong> ${formData.subject}</p>
+        <hr />
+        <h3>Message:</h3>
+        <p>${formData.message.replace(/\n/g, '<br>')}</p>
+        <hr />
+        <p><small>Submitted on ${new Date().toLocaleString()}</small></p>
+      `,
     });
-    
-    // Send confirmation to user
-    await emailService.sendEmail({
-      to: formData.email,
-      subject: 'Thank you for contacting B.Khrease Academic Consult',
-      html: generateUserConfirmationEmail(formData),
-    });
-    */
 
-    // Simulate processing delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Send confirmation email to User
+    await resend.emails.send({
+      from: 'B.Khrease Support <onboarding@resend.dev>',
+      to: formData.email,
+      subject: 'We received your message!',
+      html: `
+        <h2>Hi ${formData.name},</h2>
+        <p>Thank you for reaching out to B.Khrease Academic Consult.</p>
+        <p>We have received your inquiry about "<strong>${formData.subject}</strong>" and our team will get back to you shortly.</p>
+        <p>Best regards,<br>The B.Khrease Team</p>
+      `,
+    });
 
     return NextResponse.json(
       {
-        message:
-          'Thank you for your message! We have received your inquiry and will get back to you within 24 hours.',
+        message: 'Message sent successfully!',
         success: true,
       },
       { status: 200 }
@@ -100,8 +89,7 @@ export async function POST(request: NextRequest) {
     console.error('Contact form submission error:', error);
     return NextResponse.json(
       {
-        error:
-          'Something went wrong processing your request. Please try again later.',
+        error: 'Failed to send message. Please try again later.',
       },
       { status: 500 }
     );
@@ -118,36 +106,4 @@ export async function OPTIONS() {
       'Access-Control-Allow-Headers': 'Content-Type',
     },
   });
-}
-
-// Helper functions for email templates (for future implementation)
-// eslint-disable-next-line no-unused-vars
-function generateTeamNotificationEmail(formData: ContactFormData): string {
-  return `
-    <h2>New Contact Form Submission</h2>
-    <p><strong>Name:</strong> ${formData.name}</p>
-    <p><strong>Email:</strong> ${formData.email}</p>
-    <p><strong>Phone:</strong> ${formData.phone || 'Not provided'}</p>
-    <p><strong>Service Type:</strong> ${formData.serviceType}</p>
-    <p><strong>Subject:</strong> ${formData.subject}</p>
-    <p><strong>Message:</strong></p>
-    <p>${formData.message.replace(/\n/g, '<br>')}</p>
-    <p><strong>Submitted:</strong> ${new Date().toLocaleString()}</p>
-  `;
-}
-
-// eslint-disable-next-line no-unused-vars
-function generateUserConfirmationEmail(formData: ContactFormData): string {
-  return `
-    <h2>Thank you for contacting B.Khrease Academic Consult!</h2>
-    <p>Dear ${formData.name},</p>
-    <p>We have received your inquiry about "${formData.subject}" and will get back to you within 24 hours.</p>
-    <p>In the meantime, feel free to:</p>
-    <ul>
-      <li>Follow us on our social media channels for updates</li>
-      <li>Browse our blog for academic tips and insights</li>
-      <li>Contact us directly via WhatsApp at +234 812 235 9970 for urgent matters</li>
-    </ul>
-    <p>Best regards,<br>The B.Khrease Academic Consult Team</p>
-  `;
 }
