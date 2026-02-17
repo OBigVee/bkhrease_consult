@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     // Send email to Admin (You)
     await resend.emails.send({
-      from: 'B.Khrease Contact Form <onboarding@resend.dev>', // Use verified domain if available, else default resend.dev
+      from: 'B.Khrease Contact Form <contact@bkhrease.org>',
       to: 'Info.bkhrease.ng@gmail.com',
       replyTo: formData.email,
       subject: `New Inquiry: ${formData.subject}`,
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation email to User
     await resend.emails.send({
-      from: 'B.Khrease Support <onboarding@resend.dev>',
+      from: 'B.Khrease Support <noreply@bkhrease.org>',
       to: formData.email,
       subject: 'We received your message!',
       html: `
