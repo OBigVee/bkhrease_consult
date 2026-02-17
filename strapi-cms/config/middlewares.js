@@ -32,9 +32,10 @@ module.exports = [
     config: {
       origin: [
         'http://localhost:3000',
-        'https://deploybkhreaseconsultweb.vercel.app',
+        'https://bkhrease-consult.vercel.app',
         'https://bkhrease.org',
         'https://www.bkhrease.org',
+        'https://api.bkhrease.org',
       ],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
