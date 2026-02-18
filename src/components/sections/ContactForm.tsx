@@ -207,7 +207,7 @@ const ContactForm: React.FC = () => {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.name ? 'border-red-300 bg-red-50' : 'border-gray-300'
+              className={`w-full px-4 py-3 border rounded-lg text-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.name ? 'border-red-300 bg-red-50' : 'border-gray-300'
                 }`}
               placeholder="Enter your full name"
             />
@@ -229,7 +229,7 @@ const ContactForm: React.FC = () => {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.email ? 'border-red-300 bg-red-50' : 'border-gray-300'
+              className={`w-full px-4 py-3 border rounded-lg text-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.email ? 'border-red-300 bg-red-50' : 'border-gray-300'
                 }`}
               placeholder="Enter your email address"
             />
@@ -254,7 +254,7 @@ const ContactForm: React.FC = () => {
               name="phone"
               value={formData.phone}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.phone ? 'border-red-300 bg-red-50' : 'border-gray-300'
+              className={`w-full px-4 py-3 border rounded-lg text-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.phone ? 'border-red-300 bg-red-50' : 'border-gray-300'
                 }`}
               placeholder="Enter your phone number (optional)"
             />
@@ -275,9 +275,9 @@ const ContactForm: React.FC = () => {
               name="serviceType"
               value={formData.serviceType}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.serviceType
-                  ? 'border-red-300 bg-red-50'
-                  : 'border-gray-300'
+              className={`w-full px-4 py-3 border rounded-lg text-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.serviceType
+                ? 'border-red-300 bg-red-50'
+                : 'border-gray-300'
                 }`}
             >
               {serviceTypes.map(service => (
@@ -306,7 +306,7 @@ const ContactForm: React.FC = () => {
             name="subject"
             value={formData.subject}
             onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.subject ? 'border-red-300 bg-red-50' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg text-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.subject ? 'border-red-300 bg-red-50' : 'border-gray-300'
               }`}
             placeholder="Brief description of your inquiry"
           />
@@ -329,7 +329,7 @@ const ContactForm: React.FC = () => {
             rows={6}
             value={formData.message}
             onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 resize-vertical ${errors.message ? 'border-red-300 bg-red-50' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg text-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 resize-vertical ${errors.message ? 'border-red-300 bg-red-50' : 'border-gray-300'
               }`}
             placeholder="Please provide details about your inquiry, including your academic level, specific needs, and any deadlines..."
           />
@@ -342,8 +342,8 @@ const ContactForm: React.FC = () => {
         {submitStatus && (
           <div
             className={`p-4 rounded-lg ${submitStatus.type === 'success'
-                ? 'bg-green-50 border border-green-200 text-green-700'
-                : 'bg-red-50 border border-red-200 text-red-700'
+              ? 'bg-green-50 border border-green-200 text-green-700'
+              : 'bg-red-50 border border-red-200 text-red-700'
               }`}
           >
             <div className="flex items-center">
