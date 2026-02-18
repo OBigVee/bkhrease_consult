@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Layout } from '@/components/layout';
 import { ContactForm, ContactInfo } from '@/components/sections';
 
@@ -83,7 +84,9 @@ export default function ContactPage() {
             <ContactInfo />
 
             {/* Contact Form */}
-            <ContactForm />
+            <Suspense fallback={<div>Loading form...</div>}>
+              <ContactForm />
+            </Suspense>
           </div>
         </div>
       </div>
