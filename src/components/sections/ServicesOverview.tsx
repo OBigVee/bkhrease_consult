@@ -28,9 +28,11 @@ const ServicesOverview: React.FC<ServicesOverviewProps> = ({
     const lower = title.toLowerCase();
     if (lower.includes('mentorship')) return 'research-mentorship';
     if (lower.includes('laboratory')) return 'laboratory-assistance';
-    if (lower.includes('thesis') || lower.includes('project writing')) return 'thesis-consultancy';
+    if (lower.includes('thesis') || lower.includes('project writing'))
+      return 'thesis-consultancy';
     if (lower.includes('project')) return 'project-development';
-    if (lower.includes('training') || lower.includes('skill')) return 'skills-training';
+    if (lower.includes('training') || lower.includes('skill'))
+      return 'skills-training';
     return 'general-inquiry';
   };
 
@@ -555,7 +557,9 @@ const ServicesOverview: React.FC<ServicesOverviewProps> = ({
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
                     onClick={() => {
-                      const serviceValue = getServiceTypeValue(selectedService?.title || '');
+                      const serviceValue = getServiceTypeValue(
+                        selectedService?.title || ''
+                      );
                       setSelectedService(null);
                       router.push(`/contact?service=${serviceValue}`);
                     }}
