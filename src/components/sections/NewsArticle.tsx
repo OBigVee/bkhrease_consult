@@ -225,7 +225,7 @@ const NewsArticle: React.FC<NewsArticleProps> = ({ newsItem }) => {
             <div className="flex flex-wrap items-center gap-6 text-gray-600 mb-6">
               <div className="flex items-center gap-2">
                 <span>🕒</span>
-                <span>Published {formatDate(newsItem.publishedAt)}</span>
+                <span>Published {formatDate(newsItem.displayDate || newsItem.publishedAt)}</span>
               </div>
               {newsItem.eventDate && (
                 <div className="flex items-center gap-2">

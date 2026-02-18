@@ -116,11 +116,10 @@ const NewsListingContent: React.FC<NewsListingProps> = ({
               <button
                 key={type.value}
                 onClick={() => setSelectedFilter(type.value)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
-                  selectedFilter === type.value
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${selectedFilter === type.value
                     ? 'bg-primary-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 {type.label}
               </button>
@@ -245,7 +244,7 @@ const NewsListingContent: React.FC<NewsListingProps> = ({
                       {/* Published Date */}
                       <div className="flex items-center gap-2 text-sm text-gray-500">
                         <span>🕒</span>
-                        <span>Published {formatDate(item.publishedAt)}</span>
+                        <span>Published {formatDate(item.displayDate || item.publishedAt)}</span>
                       </div>
 
                       {/* Actions */}
@@ -302,9 +301,9 @@ const NewsListingContent: React.FC<NewsListingProps> = ({
                           const currentDate = new Date();
                           return (
                             publishedDate.getMonth() ===
-                              currentDate.getMonth() &&
+                            currentDate.getMonth() &&
                             publishedDate.getFullYear() ===
-                              currentDate.getFullYear()
+                            currentDate.getFullYear()
                           );
                         }).length
                       }

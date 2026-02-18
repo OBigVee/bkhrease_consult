@@ -115,6 +115,7 @@ export interface NewsItem {
   content: any; // Changed to any to support Strapi Blocks
   type: 'event' | 'publication' | 'achievement' | 'announcement';
   eventDate?: string;
+  displayDate?: string;
   registrationLink?: string;
   featuredImage?: MediaFile;
   publishedAt: string;
