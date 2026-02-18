@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Card from '@/components/ui/Card';
 
 interface FormData {
@@ -17,6 +18,8 @@ interface FormErrors {
 }
 
 const ContactForm: React.FC = () => {
+  const searchParams = useSearchParams();
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -25,6 +28,14 @@ const ContactForm: React.FC = () => {
     serviceType: '',
     message: '',
   });
+
+  // Pre-fill serviceType from URL query param (e.g., /contact?service=research-mentorship)
+  useEffect(() => {
+    const service = searchParams.get('service');
+    if (service) {
+      setFormData(prev => ({ ...prev, serviceType: service }));
+    }
+  }, [searchParams]);
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -196,9 +207,8 @@ const ContactForm: React.FC = () => {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${
-                errors.name ? 'border-red-300 bg-red-50' : 'border-gray-300'
-              }`}
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.name ? 'border-red-300 bg-red-50' : 'border-gray-300'
+                }`}
               placeholder="Enter your full name"
             />
             {errors.name && (
@@ -219,9 +229,8 @@ const ContactForm: React.FC = () => {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${
-                errors.email ? 'border-red-300 bg-red-50' : 'border-gray-300'
-              }`}
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.email ? 'border-red-300 bg-red-50' : 'border-gray-300'
+                }`}
               placeholder="Enter your email address"
             />
             {errors.email && (
@@ -245,9 +254,8 @@ const ContactForm: React.FC = () => {
               name="phone"
               value={formData.phone}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${
-                errors.phone ? 'border-red-300 bg-red-50' : 'border-gray-300'
-              }`}
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.phone ? 'border-red-300 bg-red-50' : 'border-gray-300'
+                }`}
               placeholder="Enter your phone number (optional)"
             />
             {errors.phone && (
@@ -267,11 +275,10 @@ const ContactForm: React.FC = () => {
               name="serviceType"
               value={formData.serviceType}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${
-                errors.serviceType
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.serviceType
                   ? 'border-red-300 bg-red-50'
                   : 'border-gray-300'
-              }`}
+                }`}
             >
               {serviceTypes.map(service => (
                 <option key={service.value} value={service.value}>
@@ -299,9 +306,8 @@ const ContactForm: React.FC = () => {
             name="subject"
             value={formData.subject}
             onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${
-              errors.subject ? 'border-red-300 bg-red-50' : 'border-gray-300'
-            }`}
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 ${errors.subject ? 'border-red-300 bg-red-50' : 'border-gray-300'
+              }`}
             placeholder="Brief description of your inquiry"
           />
           {errors.subject && (
@@ -323,9 +329,8 @@ const ContactForm: React.FC = () => {
             rows={6}
             value={formData.message}
             onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 resize-vertical ${
-              errors.message ? 'border-red-300 bg-red-50' : 'border-gray-300'
-            }`}
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 resize-vertical ${errors.message ? 'border-red-300 bg-red-50' : 'border-gray-300'
+              }`}
             placeholder="Please provide details about your inquiry, including your academic level, specific needs, and any deadlines..."
           />
           {errors.message && (
@@ -336,11 +341,10 @@ const ContactForm: React.FC = () => {
         {/* Submit Status */}
         {submitStatus && (
           <div
-            className={`p-4 rounded-lg ${
-              submitStatus.type === 'success'
+            className={`p-4 rounded-lg ${submitStatus.type === 'success'
                 ? 'bg-green-50 border border-green-200 text-green-700'
                 : 'bg-red-50 border border-red-200 text-red-700'
-            }`}
+              }`}
           >
             <div className="flex items-center">
               {submitStatus.type === 'success' ? (

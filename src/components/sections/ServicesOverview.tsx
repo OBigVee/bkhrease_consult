@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Service, StrapiResponse } from '@/types/strapi';
 import { strapiService } from '@/lib/strapi';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
@@ -20,6 +21,18 @@ const ServicesOverview: React.FC<ServicesOverviewProps> = ({
   const [loading, setLoading] = useState(!propServices);
   const [error, setError] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const router = useRouter();
+
+  // Map service titles to contact form serviceType values
+  const getServiceTypeValue = (title: string): string => {
+    const lower = title.toLowerCase();
+    if (lower.includes('mentorship')) return 'research-mentorship';
+    if (lower.includes('laboratory')) return 'laboratory-assistance';
+    if (lower.includes('thesis') || lower.includes('project writing')) return 'thesis-consultancy';
+    if (lower.includes('project')) return 'project-development';
+    if (lower.includes('training') || lower.includes('skill')) return 'skills-training';
+    return 'general-inquiry';
+  };
 
   useEffect(() => {
     if (!propServices) {
@@ -540,7 +553,14 @@ const ServicesOverview: React.FC<ServicesOverviewProps> = ({
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="btn-primary flex-1">
+                  <button
+                    onClick={() => {
+                      const serviceValue = getServiceTypeValue(selectedService?.title || '');
+                      setSelectedService(null);
+                      router.push(`/contact?service=${serviceValue}`);
+                    }}
+                    className="btn-primary flex-1"
+                  >
                     Contact Us About This Service
                   </button>
                   <button
