@@ -32,7 +32,10 @@ export async function generateMetadata({ params }: NewsPageProps) {
 
   return {
     title: `${newsItem.title} - B.Khrease Academic Consult`,
-    description: extractTextFromBlocks(newsItem.content).substring(0, 160),
+    description: extractTextFromBlocks(newsItem.content || []).substring(
+      0,
+      160
+    ),
     keywords: [
       'B.Khrease',
       'academic news',
@@ -42,7 +45,10 @@ export async function generateMetadata({ params }: NewsPageProps) {
     ],
     openGraph: {
       title: newsItem.title,
-      description: extractTextFromBlocks(newsItem.content).substring(0, 160),
+      description: extractTextFromBlocks(newsItem.content || []).substring(
+        0,
+        160
+      ),
       type: 'article',
       publishedTime: newsItem.publishedAt,
       images: newsItem.featuredImage
@@ -59,7 +65,10 @@ export async function generateMetadata({ params }: NewsPageProps) {
     twitter: {
       card: 'summary_large_image',
       title: newsItem.title,
-      description: extractTextFromBlocks(newsItem.content).substring(0, 160),
+      description: extractTextFromBlocks(newsItem.content || []).substring(
+        0,
+        160
+      ),
       images: newsItem.featuredImage ? [newsItem.featuredImage.url] : [],
     },
   };
@@ -74,7 +83,10 @@ export default async function NewsItemPage({ params }: NewsPageProps) {
 
   const seo = {
     title: `${newsItem.title} - B.Khrease Academic Consult`,
-    description: extractTextFromBlocks(newsItem.content).substring(0, 160),
+    description: extractTextFromBlocks(newsItem.content || []).substring(
+      0,
+      160
+    ),
     keywords: [
       'B.Khrease',
       'academic news',

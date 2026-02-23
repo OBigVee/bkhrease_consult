@@ -285,7 +285,15 @@ const NewsArticle: React.FC<NewsArticleProps> = ({ newsItem }) => {
           {/* Article Content */}
           <Card variant="default" padding="lg" className="mb-12">
             <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:my-2 prose-li:my-0 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:text-gray-700 prose-ol:text-gray-700">
-              <BlocksRenderer content={newsItem.content} />
+              {newsItem.content &&
+              Array.isArray(newsItem.content) &&
+              newsItem.content.length > 0 ? (
+                <BlocksRenderer content={newsItem.content} />
+              ) : (
+                <p className="text-gray-500 italic">
+                  No content available for this article.
+                </p>
+              )}
             </div>
           </Card>
 
