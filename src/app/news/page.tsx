@@ -1,6 +1,8 @@
 import { Layout } from '@/components/layout';
 import { NewsListing } from '@/components/sections';
 
+export const dynamic = 'force-dynamic';
+
 export default function NewsPage() {
   const seo = {
     title: 'News & Updates - B.Khrease Academic Consult',

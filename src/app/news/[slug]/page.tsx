@@ -5,6 +5,8 @@ import { NewsArticle } from '@/components/sections';
 import { strapiService } from '@/lib/strapi';
 import { NewsItem } from '@/types/strapi';
 
+export const dynamic = 'force-dynamic';
+
 interface NewsPageProps {
   params: {
     slug: string;
